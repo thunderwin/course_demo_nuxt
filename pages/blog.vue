@@ -42,6 +42,7 @@ li {
 <script setup>
 import { ref } from 'vue';
 
+
 const blog = ref({
   title: "",
   content: "",
@@ -53,7 +54,7 @@ const blog = ref({
 
 
 async function getBlog() {
-  const res = await $fetch('http://localhost:8000/', {
+  const res = await $fetch('http://localhost:7000/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
