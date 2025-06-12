@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <div class="contact-cta">
+      <div class="contact-cta" id="contact">
         <h2>让我们一起创造未来</h2>
         <p>有项目需求或技术咨询？我们随时准备为您提供专业服务。</p>
         <button class="cta-button">联系我们</button>

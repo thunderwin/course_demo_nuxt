@@ -1,8 +1,9 @@
 <template>
   <div>
+    <!-- <Banner /> -->
     <Header />
-    <NuxtPage />
-    <Footer />
+   <NuxtPage></NuxtPage>
+   <Footer />
   </div>
 </template>
 
