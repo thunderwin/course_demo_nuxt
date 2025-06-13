@@ -640,7 +640,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "ca5c8ea1-2010-4111-91c8-2323f61bdb33",
+    "buildId": "524fda80-cc51-43e5-b444-ca04be821639",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1053,10 +1053,12 @@ const _Hg0Q01 = eventHandler((event) => {
 
 const _SxA8c9 = defineEventHandler(() => {});
 
+const _lazy_ksTlHi = () => import('../routes/api/articles.post.mjs');
 const _lazy_GtJ7Py = () => import('../_/renderer.mjs').then(function (n) { return n.r; });
 
 const handlers = [
   { route: '', handler: _Hg0Q01, lazy: false, middleware: true, method: undefined },
+  { route: '/api/articles', handler: _lazy_ksTlHi, lazy: true, middleware: false, method: "post" },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_GtJ7Py, lazy: true, middleware: false, method: undefined }
 ];

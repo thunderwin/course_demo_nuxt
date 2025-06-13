@@ -1,9 +1,9 @@
-import { defineComponent, shallowRef, h, resolveComponent, hasInjectionContext, getCurrentInstance, computed, ref, inject, Suspense, Fragment, createApp, provide, shallowReactive, toRef, onErrorCaptured, onServerPrefetch, unref, createVNode, resolveDynamicComponent, reactive, effectScope, isReadonly, isRef, isShallow, isReactive, toRaw, defineAsyncComponent, mergeProps, getCurrentScope, withCtx, useSSRContext } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/vue/index.mjs';
+import { defineComponent, shallowRef, h, resolveComponent, hasInjectionContext, getCurrentInstance, inject, computed, ref, Suspense, Fragment, createApp, provide, shallowReactive, toRef, onErrorCaptured, onServerPrefetch, unref, createVNode, resolveDynamicComponent, reactive, effectScope, isReadonly, isRef, isShallow, isReactive, toRaw, defineAsyncComponent, mergeProps, getCurrentScope, withCtx, useSSRContext } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/vue/index.mjs';
 import { $fetch } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/ofetch/dist/node.mjs';
 import { b as baseURL } from '../_/renderer.mjs';
 import { createHooks } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/hookable/dist/index.mjs';
 import { getContext, executeAsync } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/unctx/dist/index.mjs';
-import { sanitizeStatusCode, createError as createError$1, appendHeader } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/h3/dist/index.mjs';
+import { createError as createError$1, sanitizeStatusCode, appendHeader } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/h3/dist/index.mjs';
 import { RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/vue-router/dist/vue-router.node.mjs';
 import { toRouteMatcher, createRouter as createRouter$1 } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/radix3/dist/index.mjs';
 import { defu } from 'file:///Users/nate/codewarehouse/course/nate_blog/node_modules/defu/dist/defu.mjs';
@@ -37,6 +37,8 @@ if (!("global" in globalThis)) {
   globalThis.global = globalThis;
 }
 const nuxtLinkDefaults = { "componentName": "NuxtLink" };
+const asyncDataDefaults = { "value": null, "errorValue": null, "deep": true };
+const fetchDefaults = {};
 const appId = "nuxt-app";
 function getNuxtAppCtx(id = appId) {
   return getContext(id, {
@@ -395,9 +397,9 @@ async function getRouteRules(arg) {
 }
 const _routes = [
   {
-    name: "blog",
-    path: "/blog",
-    component: () => import('./blog-BLJ-TseE.mjs')
+    name: "admin",
+    path: "/admin",
+    component: () => import('./admin-Dg63q8yr.mjs')
   },
   {
     name: "index",
@@ -408,6 +410,16 @@ const _routes = [
     name: "about-us",
     path: "/about-us",
     component: () => import('./about-us-GxNboT4g.mjs')
+  },
+  {
+    name: "blog-url",
+    path: "/blog/:url()",
+    component: () => import('./_url_-CXCGU1UX.mjs')
+  },
+  {
+    name: "blog",
+    path: "/blog",
+    component: () => import('./index-BVl6LaVH.mjs')
   },
   {
     name: "contact-us",
@@ -770,6 +782,10 @@ function useRequestEvent(nuxtApp) {
   nuxtApp || (nuxtApp = useNuxtApp());
   return (_a = nuxtApp.ssrContext) == null ? void 0 : _a.event;
 }
+function useRequestFetch() {
+  var _a;
+  return ((_a = useRequestEvent()) == null ? void 0 : _a.$fetch) || globalThis.$fetch;
+}
 function prerenderRoutes(path) {
   const paths = toArray(path);
   appendHeader(useRequestEvent(), "x-nitro-prerender", paths.map((p) => encodeURIComponent(p)).join(", "));
@@ -1104,14 +1120,14 @@ const _sfc_main$4 = {
     };
     return (_ctx, _push, _parent, _attrs) => {
       const _component_NuxtLink = __nuxt_component_0$1;
-      _push(`<header${ssrRenderAttrs(mergeProps({ class: "header" }, _attrs))} data-v-13b0fcb6><div class="container" data-v-13b0fcb6><div class="logo" data-v-13b0fcb6>`);
+      _push(`<header${ssrRenderAttrs(mergeProps({ class: "header" }, _attrs))} data-v-a408f2cf><div class="container" data-v-a408f2cf><div class="logo" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "logo-link"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<div class="logo-icon" data-v-13b0fcb6${_scopeId}><span class="code-bracket" data-v-13b0fcb6${_scopeId}>&lt;</span><span class="logo-text" data-v-13b0fcb6${_scopeId}>程序导师007</span><span class="code-bracket" data-v-13b0fcb6${_scopeId}>/&gt;</span></div>`);
+            _push2(`<div class="logo-icon" data-v-a408f2cf${_scopeId}><span class="code-bracket" data-v-a408f2cf${_scopeId}>&lt;</span><span class="logo-text" data-v-a408f2cf${_scopeId}>程序导师007</span><span class="code-bracket" data-v-a408f2cf${_scopeId}>/&gt;</span></div>`);
           } else {
             return [
               createVNode("div", { class: "logo-icon" }, [
@@ -1124,14 +1140,14 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</div><nav class="desktop-nav" data-v-13b0fcb6><ul class="nav-list" data-v-13b0fcb6><li class="nav-item" data-v-13b0fcb6>`);
+      _push(`</div><nav class="desktop-nav" data-v-a408f2cf><ul class="nav-list" data-v-a408f2cf><li class="nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "nav-link"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>🏠</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>首页</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>🏠</span><span class="nav-text" data-v-a408f2cf${_scopeId}>首页</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "🏠"),
@@ -1141,14 +1157,14 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/about-us",
         class: "nav-link"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>👨‍💻</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>关于我</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>👨‍💻</span><span class="nav-text" data-v-a408f2cf${_scopeId}>关于我</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "👨‍💻"),
@@ -1158,14 +1174,14 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/blog",
         class: "nav-link"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>📝</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>技术博客</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>📝</span><span class="nav-text" data-v-a408f2cf${_scopeId}>技术博客</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "📝"),
@@ -1175,14 +1191,31 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="nav-item" data-v-a408f2cf>`);
+      _push(ssrRenderComponent(_component_NuxtLink, {
+        to: "/admin",
+        class: "nav-link"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>👨‍💻</span><span class="nav-text" data-v-a408f2cf${_scopeId}>管理</span>`);
+          } else {
+            return [
+              createVNode("span", { class: "nav-icon" }, "👨‍💻"),
+              createVNode("span", { class: "nav-text" }, "管理")
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</li><li class="nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/contact-us",
         class: "nav-link"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>📞</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>联系我</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>📞</span><span class="nav-text" data-v-a408f2cf${_scopeId}>联系我</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "📞"),
@@ -1192,7 +1225,7 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li></ul></nav><div class="header-cta" data-v-13b0fcb6><button class="cta-button" data-v-13b0fcb6><span class="cta-icon" data-v-13b0fcb6>🚀</span> 开始学习 </button></div><button class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-menu-toggle"])}" data-v-13b0fcb6><span class="hamburger-line" data-v-13b0fcb6></span><span class="hamburger-line" data-v-13b0fcb6></span><span class="hamburger-line" data-v-13b0fcb6></span></button></div><div class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-nav"])}" data-v-13b0fcb6><ul class="mobile-nav-list" data-v-13b0fcb6><li class="mobile-nav-item" data-v-13b0fcb6>`);
+      _push(`</li></ul></nav><div class="header-cta" data-v-a408f2cf><button class="cta-button" data-v-a408f2cf><span class="cta-icon" data-v-a408f2cf>🚀</span> 开始学习 </button></div><button class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-menu-toggle"])}" data-v-a408f2cf><span class="hamburger-line" data-v-a408f2cf></span><span class="hamburger-line" data-v-a408f2cf></span><span class="hamburger-line" data-v-a408f2cf></span></button></div><div class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-nav"])}" data-v-a408f2cf><ul class="mobile-nav-list" data-v-a408f2cf><li class="mobile-nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/",
         class: "mobile-nav-link",
@@ -1200,7 +1233,7 @@ const _sfc_main$4 = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>🏠</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>首页</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>🏠</span><span class="nav-text" data-v-a408f2cf${_scopeId}>首页</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "🏠"),
@@ -1210,7 +1243,7 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="mobile-nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="mobile-nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/about-us",
         class: "mobile-nav-link",
@@ -1218,7 +1251,7 @@ const _sfc_main$4 = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>👨‍💻</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>关于我</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>👨‍💻</span><span class="nav-text" data-v-a408f2cf${_scopeId}>关于我</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "👨‍💻"),
@@ -1228,7 +1261,7 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="mobile-nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="mobile-nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/blog",
         class: "mobile-nav-link",
@@ -1236,7 +1269,7 @@ const _sfc_main$4 = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>📝</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>技术博客</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>📝</span><span class="nav-text" data-v-a408f2cf${_scopeId}>技术博客</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "📝"),
@@ -1246,7 +1279,7 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="mobile-nav-item" data-v-13b0fcb6>`);
+      _push(`</li><li class="mobile-nav-item" data-v-a408f2cf>`);
       _push(ssrRenderComponent(_component_NuxtLink, {
         to: "/contact-us",
         class: "mobile-nav-link",
@@ -1254,7 +1287,7 @@ const _sfc_main$4 = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<span class="nav-icon" data-v-13b0fcb6${_scopeId}>📞</span><span class="nav-text" data-v-13b0fcb6${_scopeId}>联系我</span>`);
+            _push2(`<span class="nav-icon" data-v-a408f2cf${_scopeId}>📞</span><span class="nav-text" data-v-a408f2cf${_scopeId}>联系我</span>`);
           } else {
             return [
               createVNode("span", { class: "nav-icon" }, "📞"),
@@ -1264,7 +1297,7 @@ const _sfc_main$4 = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="mobile-nav-item" data-v-13b0fcb6><button class="mobile-cta-button" data-v-13b0fcb6><span class="cta-icon" data-v-13b0fcb6>🚀</span> 开始学习 </button></li></ul></div><div class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-overlay"])}" data-v-13b0fcb6></div></header>`);
+      _push(`</li><li class="mobile-nav-item" data-v-a408f2cf><button class="mobile-cta-button" data-v-a408f2cf><span class="cta-icon" data-v-a408f2cf>🚀</span> 开始学习 </button></li></ul></div><div class="${ssrRenderClass([{ active: isMobileMenuOpen.value }, "mobile-overlay"])}" data-v-a408f2cf></div></header>`);
     };
   }
 };
@@ -1274,7 +1307,7 @@ _sfc_main$4.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/header.vue");
   return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
 };
-const __nuxt_component_0 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-13b0fcb6"]]);
+const __nuxt_component_0 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-a408f2cf"]]);
 const defineRouteProvider = (name = "RouteProvider") => defineComponent({
   name,
   props: {
@@ -1499,5 +1532,5 @@ let entry;
 }
 const entry$1 = (ssrContext) => entry(ssrContext);
 
-export { _export_sfc as _, __nuxt_component_0$1 as a, entry$1 as default, tryUseNuxtApp as t };
+export { _export_sfc as _, __nuxt_component_0$1 as a, useNuxtApp as b, asyncDataDefaults as c, createError as d, entry$1 as default, useRequestFetch as e, fetchDefaults as f, tryUseNuxtApp as t, useRoute as u };
 //# sourceMappingURL=server.mjs.map

@@ -33,7 +33,12 @@
               <span class="nav-text">技术博客</span>
             </NuxtLink>
           </li>
-         
+          <li class="nav-item">
+            <NuxtLink to="/admin" class="nav-link">
+              <span class="nav-icon">👨‍💻</span>
+              <span class="nav-text">管理</span>
+            </NuxtLink>
+          </li>
           <li class="nav-item">
             <NuxtLink to="/contact-us" class="nav-link">
               <span class="nav-icon">📞</span>
