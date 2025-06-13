@@ -6,7 +6,7 @@
         <NuxtLink to="/" class="logo-link">
           <div class="logo-icon">
             <span class="code-bracket">&lt;</span>
-            <span class="logo-text">程序导师</span>
+            <span class="logo-text">程序导师007</span>
             <span class="code-bracket">/&gt;</span>
           </div>
         </NuxtLink>
