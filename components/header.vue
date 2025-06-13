@@ -80,12 +80,7 @@
             <span class="nav-text">技术博客</span>
           </NuxtLink>
         </li>
-        <li class="mobile-nav-item">
-          <NuxtLink to="/courses" class="mobile-nav-link" @click="closeMobileMenu">
-            <span class="nav-icon">🎓</span>
-            <span class="nav-text">课程</span>
-          </NuxtLink>
-        </li>
+       
         <li class="mobile-nav-item">
           <NuxtLink to="/contact-us" class="mobile-nav-link" @click="closeMobileMenu">
             <span class="nav-icon">📞</span>

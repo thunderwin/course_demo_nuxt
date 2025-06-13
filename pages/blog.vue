@@ -57,7 +57,8 @@ async function getBlog() {
   const res = await $fetch('http://localhost:7000/', {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer sdfsdfsdfdsfsdfdsfsdf345345'
     }
   });
   console.log(res);

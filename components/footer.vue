@@ -31,23 +31,13 @@
         <!-- 中间：快速链接 -->
         <div class="footer-section">
           <h4 class="footer-subtitle">快速链接</h4>
-          <ul class="footer-links">
-            <li><a href="/">首页</a></li>
-            <li><a href="/blog">博客</a></li>
-            <li><a href="/projects">项目</a></li>
-            <li><a href="/about">关于我</a></li>
-          </ul>
+         
         </div>
 
         <!-- 右侧：分类 -->
         <div class="footer-section">
           <h4 class="footer-subtitle">文章分类</h4>
-          <ul class="footer-links">
-            <li><a href="/categories/frontend">前端开发</a></li>
-            <li><a href="/categories/backend">后端技术</a></li>
-            <li><a href="/categories/devops">运维部署</a></li>
-            <li><a href="/categories/thoughts">个人思考</a></li>
-          </ul>
+          
         </div>
       </div>
 
@@ -58,11 +48,11 @@
           <p class="footer-sub-text">用 ❤️ 和 Vue.js 构建</p>
         </div>
         <div class="footer-meta">
-          <a href="/privacy" class="footer-meta-link">隐私政策</a>
+          <a href="" class="footer-meta-link">隐私政策</a>
           <span class="footer-divider">•</span>
-          <a href="/terms" class="footer-meta-link">使用条款</a>
+          <a href="" class="footer-meta-link">使用条款</a>
           <span class="footer-divider">•</span>
-          <a href="/sitemap" class="footer-meta-link">网站地图</a>
+          <a href="" class="footer-meta-link">网站地图</a>
         </div>
       </div>
     </div>
