@@ -2,8 +2,9 @@
   <div>
     <!-- <Banner /> -->
     <Header />
-   <NuxtPage></NuxtPage>
-   <Footer />
+    <NuxtPage></NuxtPage>
+    <Footer />
+
+    <Chatbox />
   </div>
 </template>
-

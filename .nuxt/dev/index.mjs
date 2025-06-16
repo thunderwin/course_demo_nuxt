@@ -1428,10 +1428,12 @@ async function getIslandContext(event) {
 }
 
 const _lazy_ksTlHi = () => Promise.resolve().then(function () { return articles_post$1; });
+const _lazy_0HRG3I = () => Promise.resolve().then(function () { return chat_post$1; });
 const _lazy_GtJ7Py = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '/api/articles', handler: _lazy_ksTlHi, lazy: true, middleware: false, method: "post" },
+  { route: '/api/chat', handler: _lazy_0HRG3I, lazy: true, middleware: false, method: "post" },
   { route: '/__nuxt_error', handler: _lazy_GtJ7Py, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_GtJ7Py, lazy: true, middleware: false, method: undefined }
@@ -1832,6 +1834,60 @@ async function saveArticleToStorage(article) {
 const articles_post$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   default: articles_post
+});
+
+const chat_post = defineEventHandler(async (event) => {
+  try {
+    if (getMethod(event) !== "POST") {
+      throw createError({
+        statusCode: 405,
+        statusMessage: "\u65B9\u6CD5\u4E0D\u88AB\u5141\u8BB8"
+      });
+    }
+    const body = await readBody(event);
+    if (!body.message) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "\u7F3A\u5C11\u5FC5\u586B\u5B57\u6BB5\uFF1Amessage"
+      });
+    }
+    const userMessage = body.message.trim();
+    let aiReply = "";
+    if (userMessage.includes("\u4F60\u597D") || userMessage.includes("hello")) {
+      aiReply = "\u4F60\u597D\uFF01\u5F88\u9AD8\u5174\u89C1\u5230\u4F60\uFF0C\u6709\u4EC0\u4E48\u53EF\u4EE5\u5E2E\u52A9\u4F60\u7684\u5417\uFF1F";
+    } else if (userMessage.includes("\u5929\u6C14")) {
+      aiReply = "\u62B1\u6B49\uFF0C\u6211\u6682\u65F6\u65E0\u6CD5\u83B7\u53D6\u5B9E\u65F6\u5929\u6C14\u4FE1\u606F\u3002\u5EFA\u8BAE\u4F60\u67E5\u770B\u5929\u6C14\u9884\u62A5\u5E94\u7528\u3002";
+    } else if (userMessage.includes("\u65F6\u95F4")) {
+      aiReply = `\u73B0\u5728\u7684\u65F6\u95F4\u662F\uFF1A${(/* @__PURE__ */ new Date()).toLocaleString("zh-CN")}`;
+    } else if (userMessage.includes("\u5E2E\u52A9")) {
+      aiReply = "\u6211\u662F\u4F60\u7684\u667A\u80FD\u52A9\u624B\uFF0C\u53EF\u4EE5\u56DE\u7B54\u95EE\u9898\u3001\u63D0\u4F9B\u5EFA\u8BAE\u548C\u8FDB\u884C\u5BF9\u8BDD\u3002\u8BF7\u968F\u65F6\u544A\u8BC9\u6211\u4F60\u9700\u8981\u4EC0\u4E48\u5E2E\u52A9\uFF01";
+    } else {
+      aiReply = `\u6211\u6536\u5230\u4E86\u4F60\u7684\u6D88\u606F\uFF1A"${userMessage}"\u3002\u4F5C\u4E3A\u4E00\u4E2A\u667A\u80FD\u52A9\u624B\uFF0C\u6211\u6B63\u5728\u52AA\u529B\u7406\u89E3\u5E76\u4E3A\u4F60\u63D0\u4F9B\u6700\u597D\u7684\u56DE\u590D\u3002\u6709\u4EC0\u4E48\u5177\u4F53\u95EE\u9898\u6211\u53EF\u4EE5\u5E2E\u52A9\u4F60\u89E3\u51B3\u5417\uFF1F`;
+    }
+    console.log(`[\u804A\u5929\u8BB0\u5F55] \u7528\u6237: ${userMessage}`);
+    console.log(`[\u804A\u5929\u8BB0\u5F55] AI: ${aiReply}`);
+    return {
+      success: true,
+      message: "\u6D88\u606F\u5904\u7406\u6210\u529F",
+      reply: aiReply,
+      conversation_id: body.conversation_id || "default",
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error("\u804A\u5929API\u9519\u8BEF:", error);
+    if (error.statusCode) {
+      throw error;
+    }
+    throw createError({
+      statusCode: 500,
+      statusMessage: "\u670D\u52A1\u5668\u5185\u90E8\u9519\u8BEF"
+    });
+  }
+});
+
+const chat_post$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: chat_post
 });
 
 function renderPayloadResponse(ssrContext) {

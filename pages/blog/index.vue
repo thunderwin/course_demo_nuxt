@@ -42,19 +42,16 @@
       </div>
 
       <!-- 文章列表 -->
-      <div v-if="articles && articles.length > 0" class="articles-grid">
+      <div v-if="articles && articles.length > 0" class="articles-list">
         <article 
           v-for="article in articles" 
           :key="article.id"
-          class="glass-card article-card"
+          class="glass-card article-item"
           @click="navigateToArticle(article.id)"
         >
           <!-- 文章标题 -->
-          <h2 class="article-title">{{ article.title }}</h2>
-          
-          <!-- 文章摘要 -->
-          <div class="article-excerpt">
-            {{ getExcerpt(article.content) }}
+          <div class="article-main">
+            <h2 class="article-title">{{ article.title }}</h2>
           </div>
           
           <!-- 文章元信息 -->
@@ -71,7 +68,6 @@
           
           <!-- 阅读更多按钮 -->
           <div class="read-more">
-            <span class="read-more-text">阅读全文</span>
             <span class="read-more-arrow">→</span>
           </div>
         </article>
@@ -114,18 +110,6 @@ const { data: articles, pending, error, refresh } = await useLazyFetch('/article
  */
 const navigateToArticle = (articleId) => {
   navigateTo(`/blog/${articleId}`)
-}
-
-/**
- * 获取文章摘要（前150个字符）
- * @param {string} content - 文章内容
- * @return {string} 文章摘要
- */
-const getExcerpt = (content) => {
-  if (!content) return '暂无内容...'
-  // 移除HTML标签并截取前150个字符
-  const plainText = content.replace(/<[^>]*>/g, '')
-  return plainText.length > 150 ? plainText.substring(0, 150) + '...' : plainText
 }
 
 /**
@@ -179,8 +163,8 @@ const formatDate = (dateString) => {
 }
 
 .glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* 标题区域 */
@@ -291,25 +275,29 @@ const formatDate = (dateString) => {
   font-weight: 500;
 }
 
-/* 文章网格 */
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
+/* 文章列表 - 横向布局 */
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-/* 文章卡片 */
-.article-card {
-  padding: 2rem;
+/* 文章条目 - 横向布局 */
+.article-item {
+  padding: 1.5rem 2rem;
   cursor: pointer;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
+  min-height: 80px;
 }
 
-.article-card::before {
+.article-item::before {
   content: '';
   position: absolute;
   top: 0;
@@ -321,58 +309,64 @@ const formatDate = (dateString) => {
   transition: opacity 0.3s ease;
 }
 
-.article-card:hover::before {
+.article-item:hover::before {
   opacity: 1;
 }
 
+/* 文章主要内容区域 */
+.article-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
 .article-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  margin: 0 0 1rem 0;
+  margin: 0;
   line-height: 1.3;
+  color: white;
 }
 
-.article-excerpt {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-/* 文章元信息 */
+/* 文章元信息 - 横向排列 */
 .article-meta {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  align-items: center;
   font-size: 0.9rem;
+  margin-left: 2rem;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
 }
 
 .meta-icon {
   font-size: 1rem;
 }
 
-/* 阅读更多 */
+.meta-text {
+  font-weight: 400;
+}
+
+/* 阅读更多箭头 */
 .read-more {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin-left: 1rem;
 }
 
 .read-more-arrow {
+  font-size: 1.2rem;
   transition: transform 0.3s ease;
 }
 
-.article-card:hover .read-more-arrow {
+.article-item:hover .read-more-arrow {
   transform: translateX(5px);
 }
 
@@ -400,11 +394,6 @@ const formatDate = (dateString) => {
     padding: 1rem 0.5rem;
   }
   
-  .articles-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
   .main-title {
     font-size: 2.5rem;
   }
@@ -413,9 +402,37 @@ const formatDate = (dateString) => {
     padding: 2rem 1rem;
   }
   
+  .article-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .article-main {
+    width: 100%;
+  }
+  
+  .article-meta {
+    margin-left: 0;
+    gap: 1rem;
+  }
+  
+  .read-more {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
   .article-meta {
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
+  }
+  
+  .article-title {
+    font-size: 1.1rem;
   }
 }
 </style>
